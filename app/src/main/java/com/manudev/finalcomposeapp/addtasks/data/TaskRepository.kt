@@ -19,9 +19,6 @@ class TaskRepository @Inject constructor(private val taskDao: TaskDao) {
         }
     }
 
-    fun getTasks(): Flow<List<TaskEntity>> {
-        return taskDao.getTasks()
-    }
 
 
     suspend fun addTask(taskModel: TaskModel) {

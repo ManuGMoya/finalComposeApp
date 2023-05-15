@@ -1,11 +1,11 @@
 package com.manudev.finalcomposeapp.addtasks.ui
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manudev.finalcomposeapp.addtasks.domain.AddTaskUseCase
+import com.manudev.finalcomposeapp.addtasks.domain.DeleteTaskUseCase
 import com.manudev.finalcomposeapp.addtasks.domain.GetTasksUseCase
 import com.manudev.finalcomposeapp.addtasks.domain.UpdateTaskUseCase
 import com.manudev.finalcomposeapp.addtasks.ui.TasksUiState.Error
@@ -25,6 +25,7 @@ import javax.inject.Inject
 class TasksViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     private val updateTaskUseCase: UpdateTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase,
     getTasksUseCase: GetTasksUseCase
 ) : ViewModel() {
 
@@ -62,9 +63,9 @@ class TasksViewModel @Inject constructor(
     }
 
     fun onItemRemove(taskModel: TaskModel) {
-        // Borrar Item
-        /*        val task = _taskList.find { it.id == taskModel.id }
-                _taskList.remove(task)*/
+        viewModelScope.launch {
+            deleteTaskUseCase(taskModel)
+        }
     }
 
 }

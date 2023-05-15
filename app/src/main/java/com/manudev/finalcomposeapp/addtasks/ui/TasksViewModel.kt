@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.manudev.finalcomposeapp.addtasks.domain.AddTaskUseCase
 import com.manudev.finalcomposeapp.addtasks.domain.GetTasksUseCase
+import com.manudev.finalcomposeapp.addtasks.domain.UpdateTaskUseCase
 import com.manudev.finalcomposeapp.addtasks.ui.TasksUiState.Error
 import com.manudev.finalcomposeapp.addtasks.ui.TasksUiState.Loading
 import com.manudev.finalcomposeapp.addtasks.ui.TasksUiState.Success
@@ -23,6 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TasksViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
+    private val updateTaskUseCase: UpdateTaskUseCase,
     getTasksUseCase: GetTasksUseCase
 ) : ViewModel() {
 
@@ -33,9 +35,6 @@ class TasksViewModel @Inject constructor(
 
     private val _showDialog = MutableLiveData<Boolean>()
     var showDialog: LiveData<Boolean> = _showDialog
-
-/*    private val _taskList = mutableStateListOf<TaskModel>()
-    var taskList: List<TaskModel> = _taskList*/
 
     fun closeDialog() {
         _showDialog.value = false
@@ -57,17 +56,15 @@ class TasksViewModel @Inject constructor(
     }
 
     fun onCheckBoxSelected(taskModel: TaskModel) {
-        // Actualizar check
-/*        val index = _taskList.indexOf(taskModel)
-        _taskList[index] = _taskList[index].let {
-            it.copy(selected = !it.selected)
-        }*/
+        viewModelScope.launch {
+            updateTaskUseCase(taskModel.copy(selected = !taskModel.selected))
+        }
     }
 
     fun onItemRemove(taskModel: TaskModel) {
         // Borrar Item
-/*        val task = _taskList.find { it.id == taskModel.id }
-        _taskList.remove(task)*/
+        /*        val task = _taskList.find { it.id == taskModel.id }
+                _taskList.remove(task)*/
     }
 
 }

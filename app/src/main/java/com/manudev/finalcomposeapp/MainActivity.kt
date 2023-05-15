@@ -7,9 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.manudev.finalcomposeapp.addtasks.ui.TasksScreen
 import com.manudev.finalcomposeapp.addtasks.ui.TasksViewModel
 import com.manudev.finalcomposeapp.ui.theme.FinalComposeAppTheme
@@ -33,14 +31,5 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    FinalComposeAppTheme {
-
     }
 }
